@@ -1,5 +1,7 @@
 # Rakazo on Railway (template source)
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/rakazo?referralCode=ZqgrJ0)
+
 This repository is the deployment source for the **Rakazo** template on the
 Railway marketplace. Rakazo is an open-source platform for running persistent
 AI teammates — bots with their own conversations, memory, routines, and a
