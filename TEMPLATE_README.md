@@ -47,7 +47,7 @@ recommendation for hosts without a nested Docker daemon.
 ### Implementation Details
 
 - All application services come from the pinned upstream image
-  (`ghcr.io/elie222/rakazo/app` at the v0.1.1 release commit, multi-arch).
+  (`ghcr.io/elie222/rakazo/app` at the v0.1.6 release commit, multi-arch).
 - `api` and `worker` use a one-behavior adapter that takes ownership of the
   Railway volume at `DATA_DIR` on boot and then runs as the image's unprivileged
   `node` user.
