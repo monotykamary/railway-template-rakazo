@@ -17,7 +17,7 @@ This template deploys four services:
   `GET /health`.
 - **worker** — the Graphile Worker process handling routines, wakeup jobs, and
   background work on top of Postgres (no Redis required).
-- **postgres** — PostgreSQL 16, the single durable datastore.
+- **postgres** — PostgreSQL 18 (`postgres-ssl:18`), the single durable datastore.
 
 Bot computers run on Rakazo's remote providers (E2B, Daytona, or Box) instead
 of local Docker containers, which matches upstream's own production
@@ -51,6 +51,10 @@ recommendation for hosts without a nested Docker daemon.
 - `api` and `worker` use a one-behavior adapter that takes ownership of the
   Railway volume at `DATA_DIR` on boot and then runs as the image's unprivileged
   `node` user.
+- The `web` service publishes the upstream Vite preview server on `PORT=5173`. That server only
+  answers allow-listed hostnames, so the template relies on Railway's port check for `web` and
+  keeps the HTTP healthcheck on `api` (`GET /health`). If you attach a custom domain, set
+  `RAKAZO_HOST` to that hostname so the preview server accepts it.
 - Generated secrets (`BETTER_AUTH_SECRET`, `ENCRYPTION_KEY`,
   `SCREEN_PROXY_SECRET`) are created for you at deploy time. Do not regenerate
   `ENCRYPTION_KEY` after the first start: stored credentials would become

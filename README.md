@@ -18,7 +18,7 @@ database.
 | `web` | upstream image (pinned) | Public web app; same-origin proxies `/api` and `/rpc` to the API. Owns the public domain. |
 | `api` | this repo `Dockerfile` | Hono API server (`:3100`). Runs `prisma migrate deploy` at start. |
 | `worker` | this repo `Dockerfile` | Graphile Worker process (jobs, routines, wakeup). |
-| `postgres` | `postgres:16` | Primary datastore (auth, threads, memory, queues). No Redis needed. |
+| `postgres` | `ghcr.io/railwayapp-templates/postgres-ssl:18` | Primary datastore (auth, threads, memory, queues). No Redis needed. |
 
 The sandbox supervisor and browser-computer containers from upstream's Docker
 provider are intentionally **not** deployed: Railway has no nested Docker
@@ -29,8 +29,8 @@ production Compose file recommends.
 ## Pinned versions
 
 - Upstream release: **v0.1.6** (commit `84c8689f92f267d5d846d7b193b382631372d315`)
-- Application image: `ghcr.io/elie222/rakazo/app@sha256:f3c31787c2a5be058aef9842e35840d4b84c356dff3b02b436bd0b0d9df65b3c` (multi-arch amd64 + arm64)
-- Postgres: `postgres:16`
+- Application image: `ghcr.io/elie222/rakazo/app@sha256:fb60c6eeed892395f586794928ac8625f1a9553768095f30116d3eb9bd2b5e9a` (multi-arch amd64 + arm64)
+- Postgres: `ghcr.io/railwayapp-templates/postgres-ssl:18` (PostgreSQL 18.6 at validation time)
 
 The upstream project has not published `vX.Y.Z` image tags to GHCR yet, so the
 template pins the immutable `sha-<commit>` image built from the exact v0.1.6
@@ -62,6 +62,10 @@ reverse proxy — `web` already same-origin proxies API traffic.
   Docker socket and sibling containers. Use E2B, Daytona, or Box — without a
   provider key the product boots and bots chat, but computer tools are
   unavailable (`SANDBOX_PROVIDER=none` fallback).
+- **Custom domains need one variable.** The upstream `web` server (Vite preview) only answers
+  allow-listed hostnames. `RAKAZO_HOST` defaults to the Railway domain, so the template ships
+  without an HTTP healthcheck on `web` (Railway's port check covers it instead; `api` keeps
+  `GET /health`). After attaching a custom domain, set `RAKAZO_HOST` to that hostname.
 - **iMessage integration** is macOS-only and unavailable.
 - Per-user local model endpoints must be reachable HTTPS URLs (loopback/
   private targets are rejected by upstream policy unless allowed).
