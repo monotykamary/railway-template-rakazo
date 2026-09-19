@@ -28,12 +28,12 @@ production Compose file recommends.
 
 ## Pinned versions
 
-- Upstream release: **v0.1.1** (commit `01a210225ed1818c4f41c902c45d1b5143f8ee68`)
+- Upstream release: **v0.1.6** (commit `84c8689f92f267d5d846d7b193b382631372d315`)
 - Application image: `ghcr.io/elie222/rakazo/app@sha256:f3c31787c2a5be058aef9842e35840d4b84c356dff3b02b436bd0b0d9df65b3c` (multi-arch amd64 + arm64)
 - Postgres: `postgres:16`
 
 The upstream project has not published `vX.Y.Z` image tags to GHCR yet, so the
-template pins the immutable `sha-<commit>` image built from the exact v0.1.1
+template pins the immutable `sha-<commit>` image built from the exact v0.1.6
 commit rather than a moving `edge` tag.
 
 ## The adapter
@@ -80,4 +80,4 @@ upstream image — version bumps remain deliberate.
   `docs/self-host.md`)
 - License: Apache-2.0 (see `LICENSE`, copied unchanged from upstream)
 - Icon: `icons/rakazo.png` is the unchanged official desktop asset from
-  upstream at tag `v0.1.1`
+  upstream at tag `v0.1.6`
